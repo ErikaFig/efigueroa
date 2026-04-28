@@ -1,7 +1,7 @@
 <?php
 include 'db.php';
 
-// Verificamos que se haya enviado la imagen y los datos del formulario
+// Verificamos que se haya enviado la imagen
 if (isset($_FILES['foto'])) {
     $directorio = "./wwwroot/uploads/";
     
@@ -22,20 +22,26 @@ if (isset($_FILES['foto'])) {
 
     $nombreArchivoFisico = time() . "_" . uniqid() . "." . $extension;
     $rutaFinal = $directorio . $nombreArchivoFisico;
+    $rutaBD = "wwwroot/uploads/" . $nombreArchivoFisico;  // Ruta relativa para BD
 
-    // IMPORTANTE: Es tmp_name, no tmp_id
+    // Mover el archivo
     if (move_uploaded_file($_FILES["foto"]["tmp_name"], $rutaFinal)) {
-        // Guardamos la ruta y el nombre que el usuario ingresó en la interfaz
+        // Guardamos en la base de datos usando la ruta relativa
         $stmt = $conn->prepare("INSERT INTO galerias (ruta_imagen, nombre_archivo) VALUES (?, ?)");
-        $stmt->bind_param("ss", $rutaFinal, $nombrePersonalizado);
+        $stmt->bind_param("ss", $rutaBD, $nombrePersonalizado);
         
         if ($stmt->execute()) {
-            echo json_encode(["status" => "success", "ruta" => $rutaFinal]);
+            echo json_encode(["status" => "success", "ruta" => $rutaBD]);
         } else {
-            echo json_encode(["status" => "error", "message" => "Error en BD"]);
+            echo json_encode(["status" => "error", "message" => "Error en BD: " . $conn->error]);
         }
+        $stmt->close();
     } else {
         echo json_encode(["status" => "error", "message" => "No se pudo mover el archivo"]);
     }
+} else {
+    echo json_encode(["status" => "error", "message" => "No se recibió el archivo"]);
 }
+
+$conn->close();
 ?>
