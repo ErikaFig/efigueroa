@@ -4,6 +4,10 @@
 require_once 'db.php'; // Traemos el código del otro archivo
 
 
+if (!isset($_POST['email']) || !isset($_POST['pwd'])) {
+    echo "Error: Faltan credenciales";
+    exit;
+}
 
 //  Obtenemos los datos del formulario
      $email  = $_POST['email'];
