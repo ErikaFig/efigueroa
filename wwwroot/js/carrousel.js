@@ -8,7 +8,7 @@ function subirImagen() {
     formData.append('descripcion', document.getElementById('descImagen').value);
 
     $.ajax({
-        url: '/efigueroa/subir.php',
+        url: 'subir.php',
         data: formData,
         processData: false,
         contentType: false,
@@ -28,7 +28,7 @@ function subirImagen() {
 function cargarGaleria(){
 
     $.ajax({
-        url: '/efigueroa/obtener_imagenes.php',
+        url: 'obtener_imagenes.php',
         type: 'GET',
         dataType: 'json',
 
@@ -93,7 +93,7 @@ function cargarGaleria(){
 
 function eliminarImagen(id) {
     if (confirm('¿Seguro que quieres borrar esta imagen?')) {
-        fetch('/efigueroa/eliminar.php?id=' + id)
+        fetch('eliminar.php?id=' + id)
             .then(function (res) { return res.json(); })
             .then(function () { cargarGaleria(); })
             .catch(function (error) {
