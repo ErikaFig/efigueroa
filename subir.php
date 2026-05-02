@@ -1,15 +1,18 @@
 <?php
 include 'db.php';
 
+
 // Verificamos que se haya enviado la imagen
 if (isset($_FILES['foto'])) {
+
+
     $directorio = "./wwwroot/uploads/";
-    
     // Si la carpeta no existe, la creamos
     if (!is_dir($directorio)) {
         mkdir($directorio, 0777, true);
     }
-
+    $nombre = $_POST['nombre'];
+    
     $nombrePersonalizado = $_POST['nombre'] ?? 'Sin nombre';
     $extension = pathinfo($_FILES["foto"]["name"], PATHINFO_EXTENSION);
     
@@ -20,28 +23,25 @@ if (isset($_FILES['foto'])) {
         exit;
     }
 
-    $nombreArchivoFisico = time() . "_" . uniqid() . "." . $extension;
-    $rutaFinal = $directorio . $nombreArchivoFisico;
-    $rutaBD = "wwwroot/uploads/" . $nombreArchivoFisico;  // Ruta relativa para BD
+    $nombreArchivo = time() . "_" . $_FILES['foto']['name'];
+    $ruta = $directorio . $nombreArchivo;
+
 
     // Mover el archivo
-    if (move_uploaded_file($_FILES["foto"]["tmp_name"], $rutaFinal)) {
+    if (move_uploaded_file($_FILES["foto"]["tmp_name"], $ruta)) {
         // Guardamos en la base de datos usando la ruta relativa
-        $stmt = $conn->prepare("INSERT INTO galerias (ruta_imagen, nombre_archivo) VALUES (?, ?)");
-        $stmt->bind_param("ss", $rutaBD, $nombrePersonalizado);
+       $sql = "INSERT INTO galerias (nombre_archivo, ruta_imagen)
+               VALUES ('$nombre', '$ruta')";
         
-        if ($stmt->execute()) {
-            echo json_encode(["status" => "success", "ruta" => $rutaBD]);
+        if($conn->query($sql)){
+            echo json_encode(["status"=>"success"]);
         } else {
-            echo json_encode(["status" => "error", "message" => "Error en BD: " . $conn->error]);
+            echo json_encode(["status"=>"error","mensaje"=>$conn->error]);
         }
-        $stmt->close();
+
     } else {
-        echo json_encode(["status" => "error", "message" => "No se pudo mover el archivo"]);
+        echo json_encode(["status"=>"error","mensaje"=>"No se pudo guardar archivo"]);
     }
-} else {
-    echo json_encode(["status" => "error", "message" => "No se recibió el archivo"]);
 }
 
-$conn->close();
 ?>
