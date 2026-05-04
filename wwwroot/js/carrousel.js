@@ -101,3 +101,7 @@ function eliminarImagen(id) {
             });
     }
 }
+
+$(document).ready(function() {
+    cargarGaleria();
+});

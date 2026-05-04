@@ -1,7 +1,11 @@
 <?php
+/*
+$conexion = new mysqli("localhost","root","","pgp_app",3303);
+if($conexion->connect_error) die("Error conexión");
+
+*/
 
 // db.php
-
 function conectarDB() {
     $host = "localhost";
     $db   = "efigueroa1_db";
@@ -26,6 +30,5 @@ function conectarDB() {
         die("Error de conexión: " . $e->getMessage());
     }
 }
-
-
+$conexion = conectarDB();
 ?>
