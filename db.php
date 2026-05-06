@@ -1,5 +1,6 @@
 <?php
 /*
+
 $conexion = new mysqli("localhost","root","","pgp_app",3303);
 if($conexion->connect_error) die("Error conexión");
 */

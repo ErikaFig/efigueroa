@@ -24,15 +24,15 @@ function subirImagen() {
 }
 
 
-function cargarGaleria(){
+function cargarGaleria() {
 
     $.ajax({
         url: 'obtener_imagenes.php',
         type: 'GET',
         dataType: 'json',
-         cache: false, 
+        cache: false,
 
-        success: function(data){
+        success: function (data) {
 
             let carrusel = document.getElementById('carruselDinamico');
             let indicadores = document.getElementById('indicadoresDinamicos');
@@ -42,14 +42,15 @@ function cargarGaleria(){
             indicadores.innerHTML = '';
             lista.innerHTML = '';
 
-            $.each(data, function(index, img){
+            $.each(data, function (index, img) {
 
                 let active = index === 0 ? 'active' : '';
 
                 // Carrusel
                 $('#carruselDinamico').append(`
                     <div class="carousel-item ${active}">
-                        <img src="${img.ruta_imagen}" class="d-block w-100" style="height:500px; object-fit:cover;">
+                        <img src="${img.ruta_imagen}?v=${img.id}" class="d-block w-100"> 
+                        class="img-fluid w-100 imagen-carrusel">
                         <div class="carousel-caption">
                             <h5>${img.nombre_archivo}</h5>
                         </div>
@@ -85,7 +86,7 @@ function cargarGaleria(){
 
         },
 
-        error: function(error){
+        error: function (error) {
             console.error("Error al cargar galería:", error);
         }
     });
@@ -102,6 +103,6 @@ function eliminarImagen(id) {
     }
 }
 
-$(document).ready(function() {
+$(document).ready(function () {
     cargarGaleria();
 });
