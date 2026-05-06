@@ -5,7 +5,6 @@ function subirImagen() {
     var formData = new FormData();
     formData.append('foto', document.getElementById('inputFoto').files[0]);
     formData.append('nombre', document.getElementById('nombreImagen').value);
-    formData.append('descripcion', document.getElementById('descImagen').value);
 
     $.ajax({
         url: 'subir.php',
@@ -31,6 +30,7 @@ function cargarGaleria(){
         url: 'obtener_imagenes.php',
         type: 'GET',
         dataType: 'json',
+         cache: false, 
 
         success: function(data){
 
