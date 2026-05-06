@@ -86,7 +86,7 @@ function login() {
 			// Si el login es exitoso, normalmente login.php redirige a dashboard.php
 			// Pero como usas AJAX, la redirección no funciona. Mejor:
 			if (result.includes("dashboard") || result === "") {
-				window.location.href = "dashboard.php";
+				window.location.href = "carrusel.html";
 			}
 		},
 		error: function (xhr, status) {
