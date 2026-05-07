@@ -107,3 +107,25 @@ function login() {
 
 }
 
+$(document).ready(function () {
+
+    $.ajax({
+
+        url: "sesion.php",
+        type: "GET",
+
+        success: function (respuesta) {
+
+            if (respuesta.login) {
+
+                $("#nombreUsuario").text(respuesta.usuario);
+
+            } else {
+
+                window.location.href = "index.html";
+
+            }
+        }
+    });
+
+});
