@@ -49,8 +49,7 @@ function cargarGaleria() {
                 // Carrusel
                 $('#carruselDinamico').append(`
                     <div class="carousel-item ${active}">
-                        <img src="${img.ruta_imagen}?v=${img.id}" class="d-block w-100"> 
-                        class="img-fluid w-100 imagen-carrusel">
+                        <img src="${img.ruta_imagen}?v=${img.id}" class="d-block w-100">
                         <div class="carousel-caption">
                             <h5>${img.nombre_archivo}</h5>
                         </div>

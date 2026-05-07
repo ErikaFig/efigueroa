@@ -14,7 +14,6 @@ if (!isset($_POST['email']) || !isset($_POST['pwd'])) {
      $pwd = $_POST['pwd'];
      
      // Llamamos a la función y guardamos el objeto en $db
-     $db = conectarDB();
       
 
   try {
@@ -22,7 +21,7 @@ if (!isset($_POST['email']) || !isset($_POST['pwd'])) {
 
 
         $sql = "select id,password,email from usuarios where email= :email";
-        $query = $db->prepare($sql);
+        $query = $conexion->prepare($sql);
 
 	
 

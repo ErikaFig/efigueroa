@@ -17,14 +17,13 @@ require_once 'db.php'; // Traemos el código del otro archivo
      $email  = $_POST['email'];
      $pwd = $_POST['pwd'];
      // Llamamos a la función y guardamos el objeto en $db
-     $db = conectarDB();
-      
+     
 
   try {
         //  Preparamos la consulta con "marcadores" (:nombre, :email)
         // Esto separa la estructura de la consulta de los datos reales
         $sql = "INSERT INTO usuarios (nombre, email,  password) VALUES (:nombre, :email, :password)";
-        $query = $db->prepare($sql);
+        $query = $conexion->prepare($sql);
 	    $passwordHash = password_hash($pwd, PASSWORD_DEFAULT);
 
         // Ejecutamos pasando los datos en un array
