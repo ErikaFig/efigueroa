@@ -23,44 +23,45 @@
             <div class="w-100 text-center">
               <h1 class="display-6"> Registrate</h1>
             </div>
-            <form class="needs-validation" novalidate>
-            <div class="col-12">
-              <!-- Nombre completo -->
-              <div class="mb-3">
-                <label for="nombre" class="form-label">Nombre completo</label>
-                <input class="form-control" id="nombre" required pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ ]{5,}">
-                <div class="invalid-feedback">
-                  Escribe tu nombre completo (solo letras).
+            <form class="needs-validation" novalidate onsubmit="event.preventDefault(); registroUsuarios();">
+              <div class="col-12">
+                <!-- Nombre completo -->
+                <div class="mb-3">
+                  <label for="nombre" class="form-label">Nombre completo</label>
+                  <input class="form-control" id="nombre" required pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ ]{5,}">
+                  <div class="invalid-feedback">
+                    Escribe tu nombre completo (solo letras).
+                  </div>
+                </div>
+
+                <!-- Correo -->
+                <div class="mb-3">
+                  <label for="email" class="form-label">Correo electrónico</label>
+                  <input type="email" class="form-control" id="email" required>
+                  <div class="invalid-feedback">
+                    Ingresa un correo electrónico válido.
+                  </div>
+                </div>
+
+                <!-- Contraseña -->
+                <div class="mb-3">
+                  <label for="pwd" class="form-label">Contraseña</label>
+                  <input type="password" class="form-control" id="pwd" required minlength="8">
+                  <div class="invalid-feedback">
+                    La contraseña debe tener al menos 8 caracteres.
+                  </div>
+                </div>
+
+                <div class="d-flex justify-content-between py-3">
+                  <div>
+                    <span class="small text-muted">¿Ya tienes cuenta?</span>
+                    <a class="small" href="index.html"> Iniciar sesión</a>
+                  </div>
+                  <button type="submit" class="btn btn-outline-primary">
+                    Registrarse</button>
+
                 </div>
               </div>
-
-              <!-- Correo -->
-              <div class="mb-3">
-                <label for="email" class="form-label">Correo electrónico</label>
-                <input type="email" class="form-control" id="email" required>
-                <div class="invalid-feedback">
-                  Ingresa un correo electrónico válido.
-                </div>
-              </div>
-
-              <!-- Contraseña -->
-              <div class="mb-3">
-                <label for="pwd" class="form-label">Contraseña</label>
-                <input type="password" class="form-control" id="pwd" required minlength="8">
-                <div class="invalid-feedback">
-                  La contraseña debe tener al menos 8 caracteres.
-                </div>
-              </div>
-
-              <div class="d-flex justify-content-between py-3">
-                <div>
-                  <span class="small text-muted">¿Ya tienes cuenta?</span>
-                  <a class="small" href="index.html"> Iniciar sesión</a>
-                </div>
-                <button type="submit" class="btn btn-outline-primary" href="index.html" onclick="registroUsuarios();"> Registrarse</button>
-
-              </div>
-            </div>
             </form>
           </div>
 

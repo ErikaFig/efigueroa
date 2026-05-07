@@ -33,12 +33,11 @@ require_once 'db.php'; // Traemos el código del otro archivo
 	    'password' => $passwordHash
         ]);
 
-        if ($resultado) {
-            header("Location: index.html");
-            
-	   echo "El usuario se ha almacenado correctamente!  <a href='index.html'>Continuar</a>";
-	   
-        }
+    if ($resultado) {
+
+        echo "OK";
+        exit;
+    }
 
     } catch (PDOException $e) {
         // Manejo de errores (ej. si el email ya existe y es único)

@@ -1,7 +1,7 @@
 <?php
 
 // index.php
-require_once 'db.php'; // Traemos el código del otro archivo
+include 'db.php'; // Traemos el código del otro archivo
 
 
 if (!isset($_POST['email']) || !isset($_POST['pwd'])) {
@@ -30,13 +30,17 @@ if (!isset($_POST['email']) || !isset($_POST['pwd'])) {
             'email'  => $email
         ]);
         $usuario = $query->fetch(PDO::FETCH_ASSOC);
+
         if($usuario){
         $verify = password_verify($pwd, $usuario['password']);
+
         if($verify){
             session_start();
             $_SESSION['username'] = $usuario['email']; // Store session data
             $_SESSION['id'] = $usuario['id'];
-            header("Location: dashboard.php");
+            
+            echo "OK";
+            exit;
             
         }else{
             echo "La contraseña esta mal...";

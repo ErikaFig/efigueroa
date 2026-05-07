@@ -18,7 +18,7 @@ $(document).ready(function () {
 });
 
 function registroUsuarios() {
-	let name = $("#nombre");
+	let nombre = $("#nombre");
 	let email = $("#email");
 	let password = $("#pwd");
 
@@ -31,7 +31,7 @@ function registroUsuarios() {
 	// Recopilar datos de un formulario para enviarlos a un servidor.
 	let formData = new FormData();
 
-	formData.append("nombre", name.val());
+	formData.append("nombre", nombre.val());
 	formData.append("email", email.val());
 	formData.append("pwd", password.val());
 	$.ajax({
@@ -44,8 +44,12 @@ function registroUsuarios() {
 		success: function (result) {
 			$('#main').html(result);
 			// Opcional: limpiar formulario después de registro exitoso
-			if (result.includes("almacenado correctamente")) {
-				$("#nombre, #email, #pwd").val('');
+			if (result.includes("OK")) {
+
+				alert("Usuario registrado correctamente");
+
+				window.location.href = "index.html";
+
 			}
 		},
 		error: function (xhr, status) {
@@ -85,8 +89,14 @@ function login() {
 			//alert("El registro de ha completado correctamente!");
 			// Si el login es exitoso, normalmente login.php redirige a dashboard.php
 			// Pero como usas AJAX, la redirección no funciona. Mejor:
-			if (result.includes("carrusel") || result === "") {
+			if (result.includes("OK")) {
+
 				window.location.href = "carrusel.html";
+
+			} else {
+
+				alert(result);
+
 			}
 		},
 		error: function (xhr, status) {
