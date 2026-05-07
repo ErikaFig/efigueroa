@@ -1,8 +1,8 @@
 <?php
-include 'db.php';
+include 'db-pgsql.php';
 
 $sql = "SELECT * FROM galerias ORDER BY id DESC";
-$stmt = $conexion->query($sql);
+$stmt = $postgres->query($sql);
 
 $imagenes = [];
 

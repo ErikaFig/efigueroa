@@ -1,5 +1,5 @@
 <?php
-include 'db.php';
+include 'db-pgsql.php';
 
 if (isset($_FILES['foto'])) {
 
@@ -26,7 +26,7 @@ if (isset($_FILES['foto'])) {
 
     if (move_uploaded_file($_FILES["foto"]["tmp_name"], $rutaAbsoluta)) {
 
-        $stmt = $conexion->prepare("INSERT INTO galerias(nombre_archivo, ruta_imagen) VALUES (?, ?)");
+        $stmt = $postgres->prepare("INSERT INTO galerias(nombre_archivo, ruta_imagen) VALUES (?, ?)");
         $stmt->execute([$nombre, $rutaRelativa]);
 
         echo json_encode(["status" => "success"]);

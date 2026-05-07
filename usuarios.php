@@ -7,9 +7,9 @@ $_SESSION["username"] = "erika";
 $_SESSION["login_time"] = time();
 
 // index.php
-require_once 'db.php'; // Traemos el código del otro archivo
+//require_once 'db.php'; // Traemos el código del otro archivo
 
-//require_once 'db-pgsql.php'; // Traemos el código del otro archivo
+require_once 'db-pgsql.php'; // Traemos el código del otro archivo
 
 
 //  Obtenemos los datos del formulario
@@ -23,7 +23,7 @@ require_once 'db.php'; // Traemos el código del otro archivo
         //  Preparamos la consulta con "marcadores" (:nombre, :email)
         // Esto separa la estructura de la consulta de los datos reales
         $sql = "INSERT INTO usuarios (nombre, email,  password) VALUES (:nombre, :email, :password)";
-        $query = $conexion->prepare($sql);
+        $query = $postgres->prepare($sql);
 	    $passwordHash = password_hash($pwd, PASSWORD_DEFAULT);
 
         // Ejecutamos pasando los datos en un array

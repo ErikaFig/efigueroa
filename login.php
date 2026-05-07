@@ -1,8 +1,8 @@
 <?php
 
 // index.php
-include 'db.php'; // Traemos el código del otro archivo
-
+//include 'db.php'; // Traemos el código del otro archivo
+require_once 'db-pgsql.php';
 
 if (!isset($_POST['email']) || !isset($_POST['pwd'])) {
     echo "Error: Faltan credenciales";
@@ -21,7 +21,7 @@ if (!isset($_POST['email']) || !isset($_POST['pwd'])) {
 
 
         $sql = "select id,password,email from usuarios where email= :email";
-        $query = $conexion->prepare($sql);
+        $query = $postgres->prepare($sql);
 
 	
 
@@ -38,7 +38,7 @@ if (!isset($_POST['email']) || !isset($_POST['pwd'])) {
             session_start();
             $_SESSION['username'] = $usuario['email']; // Store session data
             $_SESSION['id'] = $usuario['id'];
-            
+
             echo "OK";
             exit;
             

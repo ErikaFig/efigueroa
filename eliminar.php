@@ -1,11 +1,11 @@
 <?php
-include 'db.php';
+include 'db-pgsql.php';
 
 if (isset($_GET['id'])) {
 
     $id = intval($_GET['id']);
 
-    $stmt = $conexion->prepare("SELECT ruta_imagen FROM galerias WHERE id = ?");
+    $stmt = $postgres->prepare("SELECT ruta_imagen FROM galerias WHERE id = ?");
     $stmt->execute([$id]);
     $row = $stmt->fetch();
 
@@ -17,7 +17,7 @@ if (isset($_GET['id'])) {
             unlink($ruta);
         }
 
-        $deleteStmt = $conexion->prepare("DELETE FROM galerias WHERE id = ?");
+        $deleteStmt = $postgres->prepare("DELETE FROM galerias WHERE id = ?");
         $deleteStmt->execute([$id]);
 
         echo json_encode(["status" => "success"]);
