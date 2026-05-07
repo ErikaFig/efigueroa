@@ -91,6 +91,7 @@ function login() {
 			// Pero como usas AJAX, la redirección no funciona. Mejor:
 			if (result.includes("OK")) {
 
+
 				window.location.href = "carrusel.html";
 
 			} else {
