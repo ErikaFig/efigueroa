@@ -107,7 +107,7 @@ function siguienteImagen() {
 		success: function (result) {
 
             alert (result);
-			$('#carruselDinamico').html(result);
+			$('#carruselDinamico').html("${result.ruta_imagen}?v=${result.id}");
 		},
 		error: function (xhr, status) {
 			$('#main').html("<div class='alert alert-danger'>Error de conexión: " + status + "</div>");
@@ -132,7 +132,7 @@ function anteriorImagen() {
 
             alert (result);
 
-			$('#carruselDinamico').html(result);
+			$('#carruselDinamico').html("${result.ruta_imagen}?v=${result.id}");
 		},
 		error: function (xhr, status) {
 			$('#main').html("<div class='alert alert-danger'>Error de conexión: " + status + "</div>");
