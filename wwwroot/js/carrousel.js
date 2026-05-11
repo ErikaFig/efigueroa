@@ -102,8 +102,10 @@ function siguienteImagen() {
 		data: formData,
 		processData: false,
 		contentType: false,
-		type: "POST",
-		cache: false,
+		type: "GET",
+        dataType: 'json',
+        cache: false,
+		
 		success: function (result) {
 
             alert (result);
@@ -126,7 +128,8 @@ function anteriorImagen() {
 		data: formData,
 		processData: false,
 		contentType: false,
-		type: "POST",
+		type: "GET",
+        dataType: 'json',
 		cache: false,
 		success: function (result) {
 
