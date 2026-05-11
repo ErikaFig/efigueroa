@@ -3,7 +3,7 @@ include 'db.php';
 
 $id = $_POST['id'];
 
-$sql = "SELECT * FROM galerias Where id= :id";
+$sql = "SELECT * FROM galerias ORDER BY id DESC limit 1";
 $stmt = $conexion->query($sql);
 
 $imagenes = [];
