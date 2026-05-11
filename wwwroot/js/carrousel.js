@@ -1,3 +1,4 @@
+let contador = 13;
 
 function subirImagen() {
 
@@ -120,7 +121,7 @@ function anteriorImagen() {
 	formData.append("id", contador);
 
 	$.ajax({
-		url: "obtener_imagenes.php",
+		url: "imagenesAjax.php",
 		data: formData,
 		processData: false,
 		contentType: false,
