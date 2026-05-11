@@ -50,7 +50,7 @@ function cargarGaleria() {
                 // Carrusel
                 $('#carruselDinamico').append(`
                     <div class="carousel-item ${active}">
-                        <img src="${img.ruta_imagen}?v=${img.id}" class="d-block w-100">
+                        <img id="current-img" src="${img.ruta_imagen}?v=${img.id}" class="d-block w-100">
                         <div class="carousel-caption">
                             <h5>${img.nombre_archivo}</h5>
                         </div>
@@ -108,8 +108,10 @@ function siguienteImagen() {
 		
 		success: function (result) {
 
+            console.log(result[0].ruta_imagen);
+
             alert (result);
-			$('#carruselDinamico').html("${result.ruta_imagen}?v=${result.id}");
+			$('#current-img').src(result[0].ruta_imagen);
 		},
 		error: function (xhr, status) {
 			$('#main').html("<div class='alert alert-danger'>Error de conexión: " + status + "</div>");
@@ -133,9 +135,11 @@ function anteriorImagen() {
 		cache: false,
 		success: function (result) {
 
-            alert (result);
 
-			$('#carruselDinamico').html("${result.ruta_imagen}?v=${result.id}");
+            console.log(result[0].ruta_imagen);
+
+            alert (result);
+			$('#current-img').src(result[0].ruta_imagen);
 		},
 		error: function (xhr, status) {
 			$('#main').html("<div class='alert alert-danger'>Error de conexión: " + status + "</div>");
