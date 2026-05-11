@@ -1,4 +1,4 @@
-let contador = 13;
+let contador = 5;
 
 function subirImagen() {
 
