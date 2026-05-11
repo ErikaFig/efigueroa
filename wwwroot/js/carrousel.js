@@ -106,7 +106,8 @@ function siguienteImagen() {
 		cache: false,
 		success: function (result) {
 
-			$('#carruselDinamico').html('aqui va el contenido')
+            alert (result);
+			$('#carruselDinamico').html(result);
 		},
 		error: function (xhr, status) {
 			$('#main').html("<div class='alert alert-danger'>Error de conexión: " + status + "</div>");
@@ -129,7 +130,9 @@ function anteriorImagen() {
 		cache: false,
 		success: function (result) {
 
-			$('#carruselDinamico').html('aqui va el contenido anterior')
+            alert (result);
+
+			$('#carruselDinamico').html(result);
 		},
 		error: function (xhr, status) {
 			$('#main').html("<div class='alert alert-danger'>Error de conexión: " + status + "</div>");
