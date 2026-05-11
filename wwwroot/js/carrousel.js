@@ -93,12 +93,47 @@ function cargarGaleria() {
 
 function siguienteImagen() {
 
-alert ("hola");
+ let formData = new FormData();
+	formData.append("id", contador);
+
+	$.ajax({
+		url: "obtener_imagenes.php",
+		data: formData,
+		processData: false,
+		contentType: false,
+		type: "POST",
+		cache: false,
+		success: function (result) {
+
+			$('#carruselDinamico').html('aqui va el contenido')
+		},
+		error: function (xhr, status) {
+			$('#main').html("<div class='alert alert-danger'>Error de conexión: " + status + "</div>");
+		}
+	});
+
 }
 
 function anteriorImagen() {
 
- alert ("hola");
+  let formData = new FormData();
+	formData.append("id", contador);
+
+	$.ajax({
+		url: "obtener_imagenes.php",
+		data: formData,
+		processData: false,
+		contentType: false,
+		type: "POST",
+		cache: false,
+		success: function (result) {
+
+			$('#carruselDinamico').html('aqui va el contenido anterior')
+		},
+		error: function (xhr, status) {
+			$('#main').html("<div class='alert alert-danger'>Error de conexión: " + status + "</div>");
+		}
+	});
 }
 
 function eliminarImagen(id) {
