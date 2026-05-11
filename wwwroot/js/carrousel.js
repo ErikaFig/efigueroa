@@ -91,6 +91,16 @@ function cargarGaleria() {
     });
 }
 
+function siguienteImagen() {
+
+alert ("hola");
+}
+
+function anteriorImagen() {
+
+ alert ("hola");
+}
+
 function eliminarImagen(id) {
     if (confirm('¿Seguro que quieres borrar esta imagen?')) {
         fetch('eliminar.php?id=' + id)
