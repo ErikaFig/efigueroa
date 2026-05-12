@@ -35,36 +35,10 @@ function cargarGaleria() {
 
         success: function (data) {
 
-            let carrusel = document.getElementById('carruselDinamico');
-            let indicadores = document.getElementById('indicadoresDinamicos');
             let lista = document.getElementById('listaImagenes');
-
-            carrusel.innerHTML = '';
-            indicadores.innerHTML = '';
             lista.innerHTML = '';
 
             $.each(data, function (index, img) {
-
-                let active = index === 0 ? 'active' : '';
-
-                // Carrusel
-                $('#carruselDinamico').append(`
-                    <div class="carousel-item ${active}">
-                        <img id="current-img" src="${img.ruta_imagen}?v=${img.id}" class="d-block w-100">
-                        <div class="carousel-caption">
-                            <h5>${img.nombre_archivo}</h5>
-                        </div>
-                    </div>
-                `);
-
-                // Indicadores
-                $('#indicadoresDinamicos').append(`
-                    <button type="button"
-                        data-bs-target="#carouselExampleCaptions"
-                        data-bs-slide-to="${index}"
-                        class="${active}">
-                    </button>
-                `);
 
                 // Lista (CRUD)
                 $('#listaImagenes').append(`
@@ -86,9 +60,6 @@ function cargarGaleria() {
 
         },
 
-        error: function (error) {
-            console.error("Error al cargar galería:", error);
-        }
     });
 }
 
@@ -153,7 +124,7 @@ function anteriorImagen(contador) {
                 console.warn("No se encontró la imagen con ID: " + idActual);
                 // Opcional: si no existe, podrías mostrar una imagen de "No disponible"
             }
-            
+
             alert(result);
             $('#current-img').attr("src", result[0].ruta_imagen);
         },
