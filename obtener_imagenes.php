@@ -1,9 +1,7 @@
 <?php
 include 'db.php';
 
-$id = $_POST['id'];
-
-$sql = "SELECT * FROM galerias ORDER BY id DESC limit 1";
+$sql = "SELECT * FROM galerias ORDER BY id DESC"; 
 $stmt = $conexion->query($sql);
 
 $imagenes = [];
