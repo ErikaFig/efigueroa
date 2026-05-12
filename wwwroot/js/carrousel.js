@@ -92,74 +92,75 @@ function cargarGaleria() {
     });
 }
 
-function siguienteImagen() {
+function siguienteImagen(contador) {
 
     contador++;
 
-     let formData = new FormData();
-	formData.append("id", contador);
+    let formData = new FormData();
+    formData.append("id", contador);
 
-	$.ajax({
-		url: "imagenesAjax.php",
-		data: formData,
-		processData: false,
-		contentType: false,
-		type: "POST",
+    $.ajax({
+        url: "imagenesAjax.php",
+        data: formData,
+        processData: false,
+        contentType: false,
+        type: "POST",
         dataType: 'json',
         cache: false,
-		
-		success: function (result) {
+
+        success: function (result) {
 
             if (result.length > 0) {
-                console.log(result[0].ruta_imagen);
-                // Actualizamos la imagen del carrusel activo
-                // OJO: Usar el selector de la imagen que está actualmente visible
-                $('.carousel-item.active img').attr("src", result[0].ruta_imagen);
+                // Cambiamos el src y el título sin reconstruir el HTML
+                $('#current-img').attr("src", result[0].ruta_imagen + "?v=" + result[0].id);
+                $('#current-img-title').text(result[0].nombre_archivo);
             } else {
-                console.warn("No se encontró imagen con ID: " + idActual);
+                console.warn("No se encontró la imagen con ID: " + idActual);
+                // Opcional: si no existe, podrías mostrar una imagen de "No disponible"
             }
 
-            alert (result);
-			$('#current-img').attr("src",result[0].ruta_imagen );
-		},
-		error: function (xhr, status) {
-			$('#main').html("<div class='alert alert-danger'>Error de conexión: " + status + "</div>");
-		}
-	});
+            alert(result);
+            $('#current-img').attr("src", result[0].ruta_imagen);
+        },
+        error: function (xhr, status) {
+            $('#main').html("<div class='alert alert-danger'>Error de conexión: " + status + "</div>");
+        }
+    });
 
 }
 
-function anteriorImagen() {
+function anteriorImagen(contador) {
 
-    if(contador > 1) contador--;
+    if (contador > 1) contador--;
     let formData = new FormData();
-	formData.append("id", contador);
+    formData.append("id", contador);
 
-	$.ajax({
-		url: "imagenesAjax.php",
-		data: formData,
-		processData: false,
-		contentType: false,
-		type: "POST",
+    $.ajax({
+        url: "imagenesAjax.php",
+        data: formData,
+        processData: false,
+        contentType: false,
+        type: "POST",
         dataType: 'json',
-		cache: false,
-		success: function (result) {
+        cache: false,
+        success: function (result) {
 
             if (result.length > 0) {
-                console.log(result[0].ruta_imagen);
-                // Actualizamos la imagen del carrusel activo
-                // OJO: Usar el selector de la imagen que está actualmente visible
-                $('.carousel-item.active img').attr("src", result[0].ruta_imagen);
+                // Cambiamos el src y el título sin reconstruir el HTML
+                $('#current-img').attr("src", result[0].ruta_imagen + "?v=" + result[0].id);
+                $('#current-img-title').text(result[0].nombre_archivo);
             } else {
-                console.warn("No se encontró imagen con ID: " + idActual);
+                console.warn("No se encontró la imagen con ID: " + idActual);
+                // Opcional: si no existe, podrías mostrar una imagen de "No disponible"
             }
-            alert (result);
-			$('#current-img').attr("src",result[0].ruta_imagen );
-		},
-		error: function (xhr, status) {
-			$('#main').html("<div class='alert alert-danger'>Error de conexión: " + status + "</div>");
-		}
-	});
+            
+            alert(result);
+            $('#current-img').attr("src", result[0].ruta_imagen);
+        },
+        error: function (xhr, status) {
+            $('#main').html("<div class='alert alert-danger'>Error de conexión: " + status + "</div>");
+        }
+    });
 }
 
 function eliminarImagen(id) {

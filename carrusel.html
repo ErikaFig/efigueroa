@@ -18,8 +18,7 @@
     <header class="navbar navbar-dark bg-dark sticky-top shadow">
 
         <!-- Botón hamburguesa -->
-        <button class="navbar-toggler d-md-none" type="button"
-            data-bs-toggle="collapse" data-bs-target="#sidebarMenu">
+        <button class="navbar-toggler d-md-none" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu">
             <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -30,8 +29,7 @@
     <div class="d-flex">
 
         <!-- 🔥 SIDEBAR -->
-        <div id="sidebarMenu"
-            class="collapse d-md-block bg-dark text-white p-3 sidebar">
+        <div id="sidebarMenu" class="collapse d-md-block bg-dark text-white p-3 sidebar">
 
             <a href="/" class="d-flex align-items-center mb-3 text-white text-decoration-none">
                 <span class="fs-4">Mi Panel</span>
@@ -42,15 +40,13 @@
             <ul class="nav nav-pills flex-column mb-auto">
 
                 <li>
-                    <a href="#" class="nav-link text-white" data-bs-toggle="modal"
-                        data-bs-target="#modalSubirFoto">
+                    <a href="#" class="nav-link text-white" data-bs-toggle="modal" data-bs-target="#modalSubirFoto">
                         <i class="bi bi-cloud-arrow-up me-2"></i> Subir Foto
                     </a>
                 </li>
 
                 <li>
-                    <a href="#" class="nav-link text-white" data-bs-toggle="modal"
-                        data-bs-target="#modalCRUD">
+                    <a href="#" class="nav-link text-white" data-bs-toggle="modal" data-bs-target="#modalCRUD">
                         <i class="bi bi-pencil-square me-2"></i> Gestionar Galería
                     </a>
                 </li>
@@ -61,14 +57,15 @@
             <div class="dropdown">
                 <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
                     data-bs-toggle="dropdown">
-                    <img src="https://github.com/mdo.png" width="32" height="32"
-                        class="rounded-circle me-2">
+                    <img src="https://github.com/mdo.png" width="32" height="32" class="rounded-circle me-2">
                     <strong>Usuario</strong>
                 </a>
 
                 <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
                     <li><a class="dropdown-item" href="#">Perfil</a></li>
-                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
                     <li><a class="dropdown-item" href="logout.php">Cerrar sesión</a></li>
                 </ul>
             </div>
@@ -78,19 +75,20 @@
         <!-- CONTENIDO PRINCIPAL -->
         <div class="flex-grow-1 p-3 main-content">
 
-            <!-- Carrusel -->
-            <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-indicators" id="indicadoresDinamicos"></div>
+            <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img id="current-img" src="uploads/placeholder.png" class="d-block w-100" alt="Cargando...">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5 id="current-img-title">Título de la imagen</h5>
+                        </div>
+                    </div>
+                </div>
 
-                <div class="carousel-inner" id="carruselDinamico"></div>
-
-                <button class="carousel-control-prev" type="button" onclick="anteriorImagen();"
-                    data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                <button class="carousel-control-prev" type="button" onclick="anteriorImagen();">
                     <span class="carousel-control-prev-icon"></span>
                 </button>
-
-                <button class="carousel-control-next" type="button" onclick="siguienteImagen();"
-                    data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                <button class="carousel-control-next" type="button" onclick="siguienteImagen();">
                     <span class="carousel-control-next-icon"></span>
                 </button>
             </div>
@@ -126,12 +124,14 @@
                     <form id="formSubirImagen">
                         <div class="mb-3">
                             <label class="form-label">Seleccionar Archivo</label>
-                            <input type="file" name="foto" id="inputFoto" class="form-control" accept=".jpg,.png,.jpeg" required>
+                            <input type="file" name="foto" id="inputFoto" class="form-control" accept=".jpg,.png,.jpeg"
+                                required>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Nombre de la imagen</label>
-                            <input type="text" id="nombreImagen" class="form-control" placeholder="Ej: Paisaje de montaña" required>
+                            <input type="text" id="nombreImagen" class="form-control"
+                                placeholder="Ej: Paisaje de montaña" required>
                         </div>
 
                         <button type="button" onclick="subirImagen();" class="btn btn-primary w-100">
@@ -147,4 +147,5 @@
     <script src="./wwwroot/js/carrousel.js"></script>
 
 </body>
+
 </html>
