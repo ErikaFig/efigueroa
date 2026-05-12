@@ -94,7 +94,9 @@ function cargarGaleria() {
 
 function siguienteImagen() {
 
- let formData = new FormData();
+    contador++;
+
+     let formData = new FormData();
 	formData.append("id", contador);
 
 	$.ajax({
@@ -102,13 +104,20 @@ function siguienteImagen() {
 		data: formData,
 		processData: false,
 		contentType: false,
-		type: "GET",
+		type: "POST",
         dataType: 'json',
         cache: false,
 		
 		success: function (result) {
 
-            console.log(result[0].ruta_imagen);
+            if (result.length > 0) {
+                console.log(result[0].ruta_imagen);
+                // Actualizamos la imagen del carrusel activo
+                // OJO: Usar el selector de la imagen que está actualmente visible
+                $('.carousel-item.active img').attr("src", result[0].ruta_imagen);
+            } else {
+                console.warn("No se encontró imagen con ID: " + idActual);
+            }
 
             alert (result);
 			$('#current-img').attr("src",result[0].ruta_imagen );
@@ -122,7 +131,8 @@ function siguienteImagen() {
 
 function anteriorImagen() {
 
-  let formData = new FormData();
+    if(contador > 1) contador--;
+    let formData = new FormData();
 	formData.append("id", contador);
 
 	$.ajax({
@@ -130,14 +140,19 @@ function anteriorImagen() {
 		data: formData,
 		processData: false,
 		contentType: false,
-		type: "GET",
+		type: "POST",
         dataType: 'json',
 		cache: false,
 		success: function (result) {
 
-
-            console.log(result[0].ruta_imagen);
-
+            if (result.length > 0) {
+                console.log(result[0].ruta_imagen);
+                // Actualizamos la imagen del carrusel activo
+                // OJO: Usar el selector de la imagen que está actualmente visible
+                $('.carousel-item.active img').attr("src", result[0].ruta_imagen);
+            } else {
+                console.warn("No se encontró imagen con ID: " + idActual);
+            }
             alert (result);
 			$('#current-img').attr("src",result[0].ruta_imagen );
 		},
