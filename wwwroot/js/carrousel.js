@@ -1,8 +1,49 @@
 let contador = 5;
 
+$(document).ready(function () {
+    // 1. Cargamos el mini-gestor (CRUD)
+    cargarGaleria();
+
+    // 2. Buscamos la imagen inicial para el visor grande
+    $.ajax({
+        url: 'obtener_imagenes.php',
+        type: 'GET',
+        dataType: 'json',
+        success: function (data) {
+            if (data && data.length > 0) {
+                // Si hay fotos en la BD, cargamos la más reciente
+                contador = data[0].id; 
+                actualizarVisor(contador);
+            } else {
+                console.log("Aún no hay imágenes en la base de datos.");
+            }
+        }
+    });
+});
+$(document).ready(function () {
+    // 1. Cargamos el mini-gestor (CRUD)
+    cargarGaleria();
+
+    // 2. Buscamos la imagen inicial para el visor grande
+    $.ajax({
+        url: 'obtener_imagenes.php',
+        type: 'GET',
+        dataType: 'json',
+        success: function (data) {
+            if (data && data.length > 0) {
+                // Si hay fotos en la BD, cargamos la más reciente
+                contador = data[0].id; 
+                actualizarVisor(contador);
+            } else {
+                console.log("Aún no hay imágenes en la base de datos.");
+            }
+        }
+    });
+});
+
+
+// Modificamos un poco la función de subir para que el cambio sea instantáneo
 function subirImagen() {
-
-
     var formData = new FormData();
     formData.append('foto', document.getElementById('inputFoto').files[0]);
     formData.append('nombre', document.getElementById('nombreImagen').value);
@@ -13,13 +54,22 @@ function subirImagen() {
         processData: false,
         contentType: false,
         type: "POST",
-        cache: false,
-
         success: function (result) {
-            var modalElement = document.getElementById('modalSubirFoto');
-            var modal = bootstrap.Modal.getInstance(modalElement);
-            if (modal) modal.hide();
+            // 1. Cerramos el modal
+            var modal = bootstrap.Modal.getInstance(document.getElementById('modalSubirFoto'));
+            modal.hide();
+
+            // 2. Refrescamos el gestor
             cargarGaleria();
+
+            // 3. ¡IMPORTANTE! Forzamos al visor a mostrar la nueva imagen recién subida
+            // Volvemos a pedir la última para que aparezca de inmediato
+            $.getJSON('obtener_imagenes.php', function(data) {
+                if(data.length > 0) {
+                    contador = data[0].id;
+                    actualizarVisor(contador);
+                }
+            });
         }
     });
 }
