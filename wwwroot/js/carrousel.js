@@ -1,4 +1,4 @@
-let contador = 5;
+let contador = 0;
 
 $(document).ready(function () {
     // 1. Cargamos el mini-gestor (CRUD)
