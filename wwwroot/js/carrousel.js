@@ -20,26 +20,6 @@ $(document).ready(function () {
         }
     });
 });
-$(document).ready(function () {
-    // 1. Cargamos el mini-gestor (CRUD)
-    cargarGaleria();
-
-    // 2. Buscamos la imagen inicial para el visor grande
-    $.ajax({
-        url: 'obtener_imagenes.php',
-        type: 'GET',
-        dataType: 'json',
-        success: function (data) {
-            if (data && data.length > 0) {
-                // Si hay fotos en la BD, cargamos la más reciente
-                contador = data[0].id; 
-                actualizarVisor(contador);
-            } else {
-                console.log("Aún no hay imágenes en la base de datos.");
-            }
-        }
-    });
-});
 
 
 // Modificamos un poco la función de subir para que el cambio sea instantáneo
