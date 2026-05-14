@@ -13,7 +13,7 @@ $(document).ready(function () {
             if (data && data.length > 0) {
                 // Si hay fotos en la BD, cargamos la más reciente
                 contador = data[0].id; 
-                actualizarVisor(contador);
+                cargarGaleria(contador);
             } else {
                 console.log("Aún no hay imágenes en la base de datos.");
             }
