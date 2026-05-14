@@ -3,22 +3,6 @@ let contador = 0;
 $(document).ready(function () {
     // 1. Cargamos el mini-gestor (CRUD)
     cargarGaleria();
-
-    // 2. Buscamos la imagen inicial para el visor grande
-    $.ajax({
-        url: 'obtener_imagenes.php',
-        type: 'GET',
-        dataType: 'json',
-        success: function (data) {
-            if (data && data.length > 0) {
-                // Si hay fotos en la BD, cargamos la más reciente
-                contador = data[0].id; 
-                cargarGaleria(contador);
-            } else {
-                console.log("Aún no hay imágenes en la base de datos.");
-            }
-        }
-    });
 });
 
 
@@ -42,14 +26,6 @@ function subirImagen() {
             // 2. Refrescamos el gestor
             cargarGaleria();
 
-            // 3. ¡IMPORTANTE! Forzamos al visor a mostrar la nueva imagen recién subida
-            // Volvemos a pedir la última para que aparezca de inmediato
-            $.getJSON('obtener_imagenes.php', function(data) {
-                if(data.length > 0) {
-                    contador = data[0].id;
-                    actualizarVisor(contador);
-                }
-            });
         }
     });
 }
@@ -69,6 +45,17 @@ function cargarGaleria() {
             lista.innerHTML = '';
 
             $.each(data, function (index, img) {
+
+                // Añadir imagen al carrusel
+                    carruselInner.append(`
+                        <div class="carousel-item ${activeClass}">
+                            <img src="${img.ruta_imagen}" class="d-block w-100" alt="${img.nombre_archivo}" style="max-height: 500px; object-fit: contain; background: #000;">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h5>${img.nombre_archivo}</h5>
+                            </div>
+                        </div>
+                    `);
+                
 
                 // Lista (CRUD)
                 $('#listaImagenes').append(`

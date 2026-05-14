@@ -76,12 +76,13 @@
         <div class="flex-grow-1 p-3 main-content">
 
             <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
-                <div class="carousel-inner">
+                
+                <div class="carousel-indicators"></div>
+
+                <div class="carousel-inner" id="contenedorCarrusel">
                     <div class="carousel-item active">
-                        <img id="current-img" src="/uploads"
-                            class="d-block w-100" alt="Visor de imágenes">
-                        <div class="carousel-caption d-none d-md-block">
-                            <h5 id="current-img-title">Título de la imagen</h5>
+                        <div class="d-flex justify-content-center align-items-center bg-light" style="height: 400px;">
+                            <p class="text-muted">Cargando imágenes...</p>
                         </div>
                     </div>
                 </div>
