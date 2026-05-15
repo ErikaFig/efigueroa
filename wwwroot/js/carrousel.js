@@ -13,21 +13,11 @@ function subirImagen() {
         contentType: false,
         type: "POST",
         success: function (result) {
-            // 1. Cerramos el modal
+        
             var modal = bootstrap.Modal.getInstance(document.getElementById('modalSubirFoto'));
             modal.hide();
-
-            // 2. Refrescamos el gestor
             cargarGaleria();
 
-            // 3. ¡IMPORTANTE! Forzamos al visor a mostrar la nueva imagen recién subida
-            // Volvemos a pedir la última para que aparezca de inmediato
-            $.getJSON('obtener_imagenes.php', function(data) {
-                if(data.length > 0) {
-                    contador = data[0].id;
-                    actualizarVisor(contador);
-                }
-            });
         }
     });
 }
@@ -104,7 +94,8 @@ function solicitarImagen(idBuscar) {
                 // Asegúrate de que 'ruta_imagen' y 'nombre_archivo' se llamen exactamente así en tu BD
                 let imagen = result[0]; 
                 
-                $('#current-img').attr("src", imagen.ruta_imagen + "?v=" + imagen.id);
+                $('#current-img').attr(
+                    "src", imagen.ruta_imagen + "?v=" + imagen.id);
                 $('#current-img-title').text(imagen.nombre_archivo);
             } else {
                 console.warn("No se encontró la imagen o el archivo no existe en el servidor para el ID: " + idBuscar);

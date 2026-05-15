@@ -11,7 +11,7 @@ if (!$id) {
 
 try {
     // Usamos prepare() en lugar de query()
-    $sql = "SELECT * FROM galerias WHERE id = :id";
+    $sql = "SELECT * FROM galerias WHERE id = :id ORDER BY id DESC";
     $stmt = $conexion->prepare($sql);
     $stmt->execute(['id' => $id]);
 
