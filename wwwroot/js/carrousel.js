@@ -1,10 +1,4 @@
-let contador = 0;
-
-$(document).ready(function () {
-    // 1. Cargamos el mini-gestor (CRUD)
-    cargarGaleria();
-});
-
+let contadorActual = 1;
 
 // Modificamos un poco la función de subir para que el cambio sea instantáneo
 function subirImagen() {
@@ -26,6 +20,14 @@ function subirImagen() {
             // 2. Refrescamos el gestor
             cargarGaleria();
 
+            // 3. ¡IMPORTANTE! Forzamos al visor a mostrar la nueva imagen recién subida
+            // Volvemos a pedir la última para que aparezca de inmediato
+            $.getJSON('obtener_imagenes.php', function(data) {
+                if(data.length > 0) {
+                    contador = data[0].id;
+                    actualizarVisor(contador);
+                }
+            });
         }
     });
 }
@@ -45,16 +47,7 @@ function cargarGaleria() {
             lista.innerHTML = '';
 
             $.each(data, function (index, img) {
-
-                // Añadir imagen al carrusel
-                    carruselInner.append(`
-                        <div class="carousel-item ${activeClass}">
-                            <img src="${img.ruta_imagen}" class="d-block w-100" alt="${img.nombre_archivo}" style="max-height: 500px; object-fit: contain; background: #000;">
-                            <div class="carousel-caption d-none d-md-block">
-                                <h5>${img.nombre_archivo}</h5>
-                            </div>
-                        </div>
-                    `);
+                
                 
 
                 // Lista (CRUD)
@@ -80,48 +73,21 @@ function cargarGaleria() {
     });
 }
 
-function siguienteImagen(contador) {
-
-    contador++;
-
-    let formData = new FormData();
-    formData.append("id", contador);
-
-    $.ajax({
-        url: "imagenesAjax.php",
-        data: formData,
-        processData: false,
-        contentType: false,
-        type: "POST",
-        dataType: 'json',
-        cache: false,
-
-        success: function (result) {
-
-            if (result.length > 0) {
-                // Cambiamos el src y el título sin reconstruir el HTML
-                $('#current-img').attr("src", result[0].ruta_imagen + "?v=" + result[0].id);
-                $('#current-img-title').text(result[0].nombre_archivo);
-            } else {
-                console.warn("No se encontró la imagen con ID: " + idActual);
-                // Opcional: si no existe, podrías mostrar una imagen de "No disponible"
-            }
-
-            alert(result);
-            $('#current-img').attr("src", result[0].ruta_imagen);
-        },
-        error: function (xhr, status) {
-            $('#main').html("<div class='alert alert-danger'>Error de conexión: " + status + "</div>");
-        }
-    });
-
+function siguienteImagen() {
+    contadorActual++; 
+    solicitarImagen(contadorActual);
 }
 
-function anteriorImagen(contador) {
+function anteriorImagen() {
+    if (contadorActual > 1) {
+        contadorActual--; 
+        solicitarImagen(contadorActual);
+    }
+}
 
-    if (contador > 1) contador--;
+function solicitarImagen(idBuscar) {
     let formData = new FormData();
-    formData.append("id", contador);
+    formData.append("id", idBuscar);
 
     $.ajax({
         url: "imagenesAjax.php",
@@ -132,20 +98,22 @@ function anteriorImagen(contador) {
         dataType: 'json',
         cache: false,
         success: function (result) {
-
-            if (result.length > 0) {
-                // Cambiamos el src y el título sin reconstruir el HTML
-                $('#current-img').attr("src", result[0].ruta_imagen + "?v=" + result[0].id);
-                $('#current-img-title').text(result[0].nombre_archivo);
+            // Evaluamos si el arreglo contiene al menos un registro
+            if (result && result.length > 0) {
+                // PHP devuelve un arreglo, accedemos al primer índice [0]
+                // Asegúrate de que 'ruta_imagen' y 'nombre_archivo' se llamen exactamente así en tu BD
+                let imagen = result[0]; 
+                
+                $('#current-img').attr("src", imagen.ruta_imagen + "?v=" + imagen.id);
+                $('#current-img-title').text(imagen.nombre_archivo);
             } else {
-                console.warn("No se encontró la imagen con ID: " + idActual);
-                // Opcional: si no existe, podrías mostrar una imagen de "No disponible"
+                console.warn("No se encontró la imagen o el archivo no existe en el servidor para el ID: " + idBuscar);
+                // Si vas hacia adelante y no hay más, revierte el contador para no seguir sumando vacíos
+                contadorActual = idBuscar - 1; 
             }
-
-            alert(result);
-            $('#current-img').attr("src", result[0].ruta_imagen);
         },
-        error: function (xhr, status) {
+        error: function (xhr, status, error) {
+            console.error(xhr.responseText); // Te ayuda a ver errores de PHP en la consola
             $('#main').html("<div class='alert alert-danger'>Error de conexión: " + status + "</div>");
         }
     });
